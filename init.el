@@ -192,6 +192,8 @@
           (setq lsp-prefer-capf t)
           (setq read-process-output-max (* 1024 1024))
           (setq lsp-enable-indentation nil)
+          (setq lsp-file-watch-threshold 10000)
+          (push "[/\\\\]node_modules\\'" lsp-file-watch-ignored)
   :hook ((python-mode . lsp)
          (js-mode . lsp)
 ;; 	 (web-mode . lsp)
@@ -327,7 +329,7 @@
 
 (unless (package-installed-p 'json-mode)
   (package-install 'json-mode))
-(add-to-list 'auto-mode-alist '("\\.eslintrc\\'" . json-mode))
+;; (add-to-list 'auto-mode-alist '("\\.eslintrc\\'" . json-mode))
 
 ;;
 ;; Terraform.
