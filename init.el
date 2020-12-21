@@ -194,6 +194,9 @@
           (setq lsp-enable-indentation nil)
           (setq lsp-file-watch-threshold 10000)
           (push "[/\\\\]node_modules\\'" lsp-file-watch-ignored)
+          (setq lsp-eldoc-hook nil)
+          (setq lsp-signature-auto-activate nil)
+          (setq lsp-signature-doc-lines 1)
   :hook ((python-mode . lsp)
          (js-mode . lsp)
 ;; 	 (web-mode . lsp)
@@ -201,11 +204,18 @@
          (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp)
 
-;; (use-package lsp-ui
-;;   :ensure t
-;;   :config (setq lsp-ui-doc-enable nil)
-;;   :config (setq lsp-ui-sideline-show-diagnostics t)
-;;   :config (setq lsp-ui-sideline-show-hover nil)
+(use-package lsp-ui
+  :ensure t
+  :config (setq lsp-ui-sideline-show-diagnostics t)
+          (setq lsp-ui-sideline-show-hover nil)
+          (setq lsp-ui-sideline-show-code-actions t)
+          (setq lsp-ui-doc-enable t)
+          (setq lsp-ui-doc-include-signature t)
+          (setq lsp-ui-doc-frame-mode t)
+          (setq lsp-ui-doc-max-width 80)
+          (setq lsp-ui-doc-max-height 25)
+  :bind (("C-c w" . lsp-ui-doc-focus-frame)
+         ("C-c q" . lsp-ui-doc-unfocus-frame)))
 ;;   :config (setq lsp-ui-sideline-show-code-actions nil)
 ;;   :commands lsp-ui-mode)
 ;; (use-package company-lsp
