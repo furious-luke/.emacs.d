@@ -206,7 +206,7 @@
 
 (use-package lsp-ui
   :ensure t
-  :config (setq lsp-ui-sideline-show-diagnostics t)
+  :config (setq lsp-ui-sideline-show-diagnostics nil)
           (setq lsp-ui-sideline-show-hover nil)
           (setq lsp-ui-sideline-show-code-actions t)
           (setq lsp-ui-doc-enable t)
