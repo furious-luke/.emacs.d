@@ -182,6 +182,32 @@
   (which-key-mode))
 
 ;;
+;; Python environment integrations.
+;;
+
+(use-package pyenv-mode
+  :ensure t)
+
+(defun projectile-pyenv-mode-set ()
+  "Set pyenv version matching project name."
+  (let ((project (projectile-project-name)))
+    (if (member project (pyenv-mode-versions))
+        (pyenv-mode-set project)
+      (pyenv-mode-unset))))
+
+(add-hook 'projectile-after-switch-project-hook 'projectile-pyenv-mode-set)
+
+(use-package pyvenv
+  :ensure t
+  :init
+  (setenv "WORKON_HOME" "~/.pyenv/versions"))
+
+;; TODO: Is currently broken.
+;; (use-package poetry
+;;   :ensure t)
+;;  :config (add-hook 'prog-mode-hook #'poetry-tracking-mode))
+
+;;
 ;; Language Server Protocol.
 ;;
 
@@ -191,6 +217,7 @@
   :config (setq lsp-pyls-plugins-flake8-enabled t)
           (setq lsp-pyls-plugins-pyflakes-enabled nil)
           (setq lsp-pyls-plugins-pycodestyle-enabled nil)
+          (setq lsp-pyls-configuration-sources ["flake8"])
           (setq lsp-prefer-capf t)
           (setq read-process-output-max (* 1024 1024))
           (setq lsp-enable-indentation nil)
@@ -199,6 +226,11 @@
           (setq lsp-eldoc-hook nil)
           (setq lsp-signature-auto-activate nil)
           (setq lsp-signature-doc-lines 1)
+          (lsp-register-custom-settings
+           '(("pyls.plugins.pyls_mypy.enabled" t t)
+             ("pyls.plugins.pyls_mypy.live_mode" nil t)
+             ("pyls.plugins.pyls_black.enabled" t t)
+             ("pyls.plugins.pyls_isort.enabled" t t)))
   :hook ((python-mode . lsp)
          (js-mode . lsp)
 ;; 	 (web-mode . lsp)
@@ -242,15 +274,6 @@
 ;; TODO
 ;; (use-package dap-mode)
 ;; (use-package dap-LANGUAGE) to load the dap adapter for your language
-
-;;
-;; Python Poetry integration.
-;;
-
-;; TODO: Is currently broken.
-;; (use-package poetry
-;;   :ensure t)
-;;  :config (add-hook 'prog-mode-hook #'poetry-tracking-mode))
 
 ;;
 ;; Docker.
@@ -367,10 +390,10 @@
 ;; Linting with Flycheck.
 ;;
 
-(use-package flycheck
-  :ensure t
-  :init (global-flycheck-mode)
-  :config (setq flycheck-python-flake8-executable "flake8"))
+;; (use-package flycheck
+;;   :ensure t
+;;   :init (global-flycheck-mode)
+;;   :config (setq flycheck-python-flake8-executable "flake8"))
 ;; (unless (package-installed-p 'flycheck)
 ;;   (package-install 'flycheck))
 ;; (global-flycheck-mode)
