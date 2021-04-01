@@ -1,3 +1,5 @@
+(add-to-list 'load-path "~/.emacs.d/custom/")
+
 ;;
 ;; Autosave/backups.
 ;;
@@ -536,6 +538,7 @@
 ;;   :ensure t)
   ;; :config
   ;; (add-hook 'before-save-hook 'py-isort-before-save))
+
 
 ;;
 ;; Automatic stuff.
