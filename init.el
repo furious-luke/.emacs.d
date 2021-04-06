@@ -249,7 +249,7 @@
           (setq lsp-ui-doc-max-width 80)
           (setq lsp-ui-doc-max-height 25)
   :bind (("C-c w" . lsp-ui-doc-focus-frame)
-         ("C-c q" . lsp-ui-doc-unfocus-frame)))
+         ("C-c q" . lsp-ui-doc-focus-frame)))
 ;;   :config (setq lsp-ui-sideline-show-code-actions nil)
 ;;   :commands lsp-ui-mode)
 ;; (use-package company-lsp
@@ -564,6 +564,12 @@
 
 
 ;;
+;; Org mode
+;;
+
+(setq org-src-tab-acts-natively t)
+
+;;
 ;; Automatic stuff.
 ;;
 
@@ -577,7 +583,7 @@
  '(helm-mode t)
  '(magit-pull-arguments nil)
  '(package-selected-packages
-   '(flycheck poetry ibuffer-projectile company-lsp lsp-treemacs helm-lsp lsp-ui lsp-mode terraform-mode lua-mode py-isort markdown-mode multiple-cursors eshell-bookmark eshell-booknmark docker-compose-mode docker exec-path-from-shell json-mode rjsx-mode diff-hl magit dockerfile-mode ag helm-ag helm-projectile use-package projectile helm dracula-theme)))
+   '(csv-mode flycheck poetry ibuffer-projectile company-lsp lsp-treemacs helm-lsp lsp-ui lsp-mode terraform-mode lua-mode py-isort markdown-mode multiple-cursors eshell-bookmark eshell-booknmark docker-compose-mode docker exec-path-from-shell json-mode rjsx-mode diff-hl magit dockerfile-mode ag helm-ag helm-projectile use-package projectile helm dracula-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
