@@ -570,6 +570,18 @@
 (setq org-src-tab-acts-natively t)
 
 ;;
+;; Code compass
+;;
+
+(use-package async)
+(use-package dash)
+(use-package f)
+(use-package s)
+(use-package simple-httpd)
+(use-package code-compass
+  :load-path "~/.emacs.d/lisp")
+
+;;
 ;; Automatic stuff.
 ;;
 
