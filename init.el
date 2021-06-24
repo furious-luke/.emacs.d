@@ -202,6 +202,13 @@
   :init
   (setenv "WORKON_HOME" "~/.pyenv/versions"))
 
+;;
+;; Graphql mode
+;;
+
+(use-package graphql-mode
+  :ensure t)
+
 ;; TODO: Is currently broken.
 ;; (use-package poetry
 ;;   :ensure t)
@@ -438,7 +445,18 @@
   :init (setq markdown-command "multimarkdown"))
 
 (custom-set-variables
- '(markdown-command "pandoc"))
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(diff-hl-flydiff-mode t)
+ '(helm-completion-style 'emacs)
+ '(helm-mode t)
+ '(magit-pull-arguments nil)
+ '(markdown-command "pandoc" t)
+ '(org-tags-column -119)
+ '(package-selected-packages
+   '(groovy-mode csv-mode flycheck poetry ibuffer-projectile company-lsp lsp-treemacs helm-lsp lsp-ui lsp-mode terraform-mode lua-mode py-isort markdown-mode multiple-cursors eshell-bookmark eshell-booknmark docker-compose-mode docker exec-path-from-shell json-mode rjsx-mode diff-hl magit dockerfile-mode ag helm-ag helm-projectile use-package projectile helm dracula-theme)))
 
 ;;
 ;; 256 colors in Eshell.
@@ -544,6 +562,16 @@
   :ensure t)
 
 ;;
+;; PlantUML
+;;
+
+(use-package plantuml-mode
+  :ensure t
+  :config (setq plantuml-jar-path "/usr/share/java/plantuml/plantuml.jar")
+          (setq plantuml-default-exec-mode 'jar))
+(add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+
+;;
 ;; Open file tabs
 ;;
 
@@ -595,17 +623,7 @@
 ;; Automatic stuff.
 ;;
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(diff-hl-flydiff-mode t)
- '(helm-completion-style 'emacs)
- '(helm-mode t)
- '(magit-pull-arguments nil)
- '(package-selected-packages
-   '(groovy-mode csv-mode flycheck poetry ibuffer-projectile company-lsp lsp-treemacs helm-lsp lsp-ui lsp-mode terraform-mode lua-mode py-isort markdown-mode multiple-cursors eshell-bookmark eshell-booknmark docker-compose-mode docker exec-path-from-shell json-mode rjsx-mode diff-hl magit dockerfile-mode ag helm-ag helm-projectile use-package projectile helm dracula-theme)))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
