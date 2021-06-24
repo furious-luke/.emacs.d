@@ -317,6 +317,13 @@
 (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
 
 ;;
+;; Groovy
+;;
+
+(use-package groovy-mode
+  :ensure t)
+
+;;
 ;; JavaScript.
 ;;
 
@@ -429,6 +436,9 @@
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
+
+(custom-set-variables
+ '(markdown-command "pandoc"))
 
 ;;
 ;; 256 colors in Eshell.
@@ -595,7 +605,7 @@
  '(helm-mode t)
  '(magit-pull-arguments nil)
  '(package-selected-packages
-   '(csv-mode flycheck poetry ibuffer-projectile company-lsp lsp-treemacs helm-lsp lsp-ui lsp-mode terraform-mode lua-mode py-isort markdown-mode multiple-cursors eshell-bookmark eshell-booknmark docker-compose-mode docker exec-path-from-shell json-mode rjsx-mode diff-hl magit dockerfile-mode ag helm-ag helm-projectile use-package projectile helm dracula-theme)))
+   '(groovy-mode csv-mode flycheck poetry ibuffer-projectile company-lsp lsp-treemacs helm-lsp lsp-ui lsp-mode terraform-mode lua-mode py-isort markdown-mode multiple-cursors eshell-bookmark eshell-booknmark docker-compose-mode docker exec-path-from-shell json-mode rjsx-mode diff-hl magit dockerfile-mode ag helm-ag helm-projectile use-package projectile helm dracula-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
