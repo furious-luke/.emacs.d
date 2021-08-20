@@ -456,7 +456,7 @@
  '(markdown-command "pandoc" t)
  '(org-tags-column -119)
  '(package-selected-packages
-   '(groovy-mode csv-mode flycheck poetry ibuffer-projectile company-lsp lsp-treemacs helm-lsp lsp-ui lsp-mode terraform-mode lua-mode py-isort markdown-mode multiple-cursors eshell-bookmark eshell-booknmark docker-compose-mode docker exec-path-from-shell json-mode rjsx-mode diff-hl magit dockerfile-mode ag helm-ag helm-projectile use-package projectile helm dracula-theme)))
+   '(code-compass simple-httpd groovy-mode csv-mode flycheck poetry ibuffer-projectile company-lsp lsp-treemacs helm-lsp lsp-ui lsp-mode terraform-mode lua-mode py-isort markdown-mode multiple-cursors eshell-bookmark eshell-booknmark docker-compose-mode docker exec-path-from-shell json-mode rjsx-mode diff-hl magit dockerfile-mode ag helm-ag helm-projectile use-package projectile helm dracula-theme)))
 
 ;;
 ;; 256 colors in Eshell.
@@ -615,9 +615,10 @@
 (use-package dash)
 (use-package f)
 (use-package s)
-(use-package simple-httpd)
-(use-package code-compass
-  :load-path "~/.emacs.d/lisp")
+(use-package simple-httpd
+  :ensure t)
+;; (use-package code-compass
+;;   :load-path "~/.emacs.d/lisp")
 
 ;;
 ;; Automatic stuff.
