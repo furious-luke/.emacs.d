@@ -250,7 +250,7 @@
   :config (setq lsp-ui-sideline-show-diagnostics nil)
           (setq lsp-ui-sideline-show-hover nil)
           (setq lsp-ui-sideline-show-code-actions t)
-          (setq lsp-ui-doc-enable t)
+          (setq lsp-ui-doc-enable nil)
           (setq lsp-ui-doc-include-signature t)
           (setq lsp-ui-doc-frame-mode t)
           (setq lsp-ui-doc-max-width 80)
