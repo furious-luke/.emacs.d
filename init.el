@@ -456,7 +456,7 @@
  '(markdown-command "pandoc" t)
  '(org-tags-column -119)
  '(package-selected-packages
-   '(code-compass simple-httpd groovy-mode csv-mode flycheck poetry ibuffer-projectile company-lsp lsp-treemacs helm-lsp lsp-ui lsp-mode terraform-mode lua-mode py-isort markdown-mode multiple-cursors eshell-bookmark eshell-booknmark docker-compose-mode docker exec-path-from-shell json-mode rjsx-mode diff-hl magit dockerfile-mode ag helm-ag helm-projectile use-package projectile helm dracula-theme)))
+   '(scad-mode code-compass simple-httpd groovy-mode csv-mode flycheck poetry ibuffer-projectile company-lsp lsp-treemacs helm-lsp lsp-ui lsp-mode terraform-mode lua-mode py-isort markdown-mode multiple-cursors eshell-bookmark eshell-booknmark docker-compose-mode docker exec-path-from-shell json-mode rjsx-mode diff-hl magit dockerfile-mode ag helm-ag helm-projectile use-package projectile helm dracula-theme)))
 
 ;;
 ;; 256 colors in Eshell.
@@ -570,6 +570,13 @@
   :config (setq plantuml-jar-path "/usr/share/java/plantuml/plantuml.jar")
           (setq plantuml-default-exec-mode 'jar))
 (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+
+;;
+;; OpenSCAD.
+;;
+
+(use-package scad-mode
+  :ensure t)
 
 ;;
 ;; Open file tabs
