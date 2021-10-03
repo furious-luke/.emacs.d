@@ -336,6 +336,7 @@
 
 (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js-mode))
 (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . js-mode))
+(add-to-list 'auto-mode-alist '("\\.cjs\\'" . js-mode))
 
 ;; rjsx-mode
 ;; (unless (package-installed-p 'rjsx-mode)
