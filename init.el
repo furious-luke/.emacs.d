@@ -443,7 +443,8 @@
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
-  :init (setq markdown-command "multimarkdown"))
+  :init (setq markdown-command "multimarkdown")
+        (setq markdown-fontify-code-blocks-natively t))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
