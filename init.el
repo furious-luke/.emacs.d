@@ -70,6 +70,44 @@
                     :font "FiraCode Nerd Font Mono"
                     :height 120)  ;; 1/10 pt
 
+;;
+;; Manage HiDPI environments.
+;;
+
+(defun my-dpi (&optional frame)
+  "Get the DPI of FRAME (or current if nil)."
+  (cl-flet ((pyth (lambda (w h)
+                    (sqrt (+ (* w w)
+                             (* h h)))))
+            (mm2in (lambda (mm)
+                     (/ mm 25.4))))
+    (let* ((atts (frame-monitor-attributes frame))
+           (pix-w (cl-fourth (assoc 'geometry atts)))
+           (pix-h (cl-fifth (assoc 'geometry atts)))
+           (pix-d (pyth pix-w pix-h))
+           (mm-w (cl-second (assoc 'mm-size atts)))
+           (mm-h (cl-third (assoc 'mm-size atts)))
+           (mm-d (pyth mm-w mm-h)))
+      (/ pix-d (mm2in mm-d)))))
+
+(defvar my-zoom-frm-wanted-dpi 70
+  "The DPI I want to achieve when using `my-zoom-frm-by-dpi'.")
+
+(defun my-zoom-frm-by-dpi (&optional frame)
+  "Zoom FRAME so the DPI is closer to `my-zoom-frm-wanted-dpi'."
+  (interactive)
+  (let ((frame (or frame (selected-frame))))
+    (when (frame-parameter frame 'zoomed)
+      (zoom-frm-unzoom frame))
+    (let ((frame-zoom-font-difference (1- (round (/ (my-dpi frame)
+                                                    my-zoom-frm-wanted-dpi)))))
+      (when (called-interactively-p 'interactive)
+        (message "Zooming by %S" frame-zoom-font-difference))
+      (zoom-frm-in frame))))
+
+;; Apply the scaling I want to each newly created frame:
+(add-hook 'after-make-frame-functions #'my-zoom-frm-by-dpi)
+
 ;; TODO: This doesn't work *at all*.
 ;; (use-package fira-code-mode
 ;;   :ensure t
