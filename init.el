@@ -369,6 +369,13 @@
   :ensure t)
 
 ;;
+;; Haskell
+;;
+
+(use-package haskell-mode
+  :ensure t)
+
+;;
 ;; JavaScript.
 ;;
 
