@@ -256,6 +256,9 @@
 ;; Language Server Protocol.
 ;;
 
+(use-package yasnippet
+  :ensure t)
+
 (use-package lsp-mode
   :ensure t
   :init (setq lsp-keymap-prefix "C-c l")
