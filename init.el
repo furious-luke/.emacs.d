@@ -274,6 +274,7 @@
           (setq lsp-eldoc-hook nil)
           (setq lsp-signature-auto-activate nil)
           (setq lsp-signature-doc-lines 1)
+          (setq lsp-headerline-breadcrumb-icons-enable t)
           (lsp-register-custom-settings
            '(("pyls.plugins.pyls_mypy.enabled" t t)
              ("pyls.plugins.pyls_mypy.live_mode" nil t)
@@ -308,9 +309,9 @@
 ;;   :commands helm-lsp-workspace-symbol)
 ;; ;; ;; if you are ivy user
 ;; ;; ;; (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
-;; (use-package lsp-treemacs
-;;   :ensure t
-;;   :commands lsp-treemacs-errors-list)
+(use-package lsp-treemacs
+  :ensure t)
+;;  :commands lsp-treemacs-errors-list)
 
 ;; ;; Eslint integration.
 ;; (setq lsp-eslint-server-command 
@@ -503,7 +504,7 @@
  '(helm-completion-style 'emacs)
  '(helm-mode t)
  '(magit-pull-arguments nil)
- '(markdown-command "pandoc" t)
+ '(markdown-command "pandoc")
  '(org-tags-column -119)
  '(package-selected-packages
    '(scad-mode code-compass simple-httpd groovy-mode csv-mode flycheck poetry ibuffer-projectile company-lsp lsp-treemacs helm-lsp lsp-ui lsp-mode terraform-mode lua-mode py-isort markdown-mode multiple-cursors eshell-bookmark eshell-booknmark docker-compose-mode docker exec-path-from-shell json-mode rjsx-mode diff-hl magit dockerfile-mode ag helm-ag helm-projectile use-package projectile helm dracula-theme)))
