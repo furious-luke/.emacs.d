@@ -247,7 +247,6 @@
 (use-package graphql-mode
   :ensure t)
 
-;; TODO: Is currently broken.
 ;; (use-package poetry
 ;;   :ensure t)
 ;;  :config (add-hook 'prog-mode-hook #'poetry-tracking-mode))
@@ -262,10 +261,11 @@
 (use-package lsp-mode
   :ensure t
   :init (setq lsp-keymap-prefix "C-c l")
-  :config (setq lsp-pyls-plugins-flake8-enabled t)
-          (setq lsp-pyls-plugins-pyflakes-enabled nil)
-          (setq lsp-pyls-plugins-pycodestyle-enabled nil)
-          (setq lsp-pyls-configuration-sources ["flake8"])
+  :config ;;(setq lsp-pyls-plugins-flake8-enabled t)
+          ;;(setq lsp-pyls-plugins-pyflakes-enabled nil)
+          ;;(setq lsp-pyls-plugins-pycodestyle-enabled nil)
+          ;;(setq lsp-pyls-plugins-pydocstyle-enabled nil)
+          ;;(setq lsp-pyls-configuration-sources ["flake8"])
           (setq lsp-prefer-capf t)
           (setq read-process-output-max (* 1024 1024))
           (setq lsp-enable-indentation nil)
@@ -275,17 +275,21 @@
           (setq lsp-signature-auto-activate nil)
           (setq lsp-signature-doc-lines 1)
           (setq lsp-headerline-breadcrumb-icons-enable t)
-          (lsp-register-custom-settings
-           '(("pyls.plugins.pyls_mypy.enabled" t t)
-             ("pyls.plugins.pyls_mypy.live_mode" nil t)
-             ("pyls.plugins.pyls_black.enabled" t t)
-             ("pyls.plugins.pyls_isort.enabled" t t)))
+          ;;(lsp-register-custom-settings
+          ;; '(("pyls.plugins.pyls_mypy.enabled" t t)
+          ;;   ("pyls.plugins.pyls_mypy.live_mode" nil t)
+          ;;   ("pyls.plugins.pyls_black.enabled" t t)
+          ;;   ("pyls.plugins.pyls_isort.enabled" t t)))
   :hook ((python-mode . lsp)
          (js-mode . lsp)
 ;; 	 (web-mode . lsp)
 ;; 	 (rjsx-mode . lsp)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp)
+
+(use-package lsp-pyright
+  :after lsp-mode
+  :ensure t)
 
 (use-package lsp-ui
   :ensure t
@@ -507,7 +511,7 @@
  '(markdown-command "pandoc")
  '(org-tags-column -119)
  '(package-selected-packages
-   '(scad-mode code-compass simple-httpd groovy-mode csv-mode flycheck poetry ibuffer-projectile company-lsp lsp-treemacs helm-lsp lsp-ui lsp-mode terraform-mode lua-mode py-isort markdown-mode multiple-cursors eshell-bookmark eshell-booknmark docker-compose-mode docker exec-path-from-shell json-mode rjsx-mode diff-hl magit dockerfile-mode ag helm-ag helm-projectile use-package projectile helm dracula-theme)))
+   '(plantuml-mode treemacs-magit treemacs-icons-dired treemacs-projectile scad-mode code-compass simple-httpd groovy-mode csv-mode flycheck poetry ibuffer-projectile company-lsp lsp-treemacs helm-lsp lsp-ui lsp-mode terraform-mode lua-mode py-isort markdown-mode multiple-cursors eshell-bookmark eshell-booknmark docker-compose-mode docker exec-path-from-shell json-mode rjsx-mode diff-hl magit dockerfile-mode ag helm-ag helm-projectile use-package projectile helm dracula-theme)))
 
 ;;
 ;; 256 colors in Eshell.
