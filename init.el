@@ -535,9 +535,9 @@
   :init
   (setenv "WORKON_HOME" "~/.pyenv/versions"))
 
-(use-package poetry
-  :ensure t
-  :config (add-hook 'prog-mode-hook #'poetry-tracking-mode))
+;; (use-package poetry
+;;   :ensure t
+;;   :config (add-hook 'prog-mode-hook #'poetry-tracking-mode))
 
 ;;
 ;; Graphql mode
