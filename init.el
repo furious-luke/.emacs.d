@@ -259,23 +259,23 @@
 ;; Completion system.
 ;;
 
-;; (use-package selectrum
-;;   :ensure t
-;;   :init
-;;   (selectrum-mode +1))
-
-(use-package vertico
+(use-package selectrum
+  :ensure t
   :init
-  (vertico-mode)
-  ;; Different scroll margin
-  ;; (setq vertico-scroll-margin 0)
-  ;; Show more candidates
-  ;; (setq vertico-count 20)
-  ;; Grow and shrink the Vertico minibuffer
-  ;; (setq vertico-resize t)
-  ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
-  ;; (setq vertico-cycle t))
-  )
+  (selectrum-mode +1))
+
+;; (use-package vertico
+;;   :init
+;;   (vertico-mode)
+;;   ;; Different scroll margin
+;;   ;; (setq vertico-scroll-margin 0)
+;;   ;; Show more candidates
+;;   ;; (setq vertico-count 20)
+;;   ;; Grow and shrink the Vertico minibuffer
+;;   ;; (setq vertico-resize t)
+;;   ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
+;;   ;; (setq vertico-cycle t))
+;;   )
 
 ;; Prescient provides filtering and sorting for completion options.
 ;; NOTE: Disabled in favor of `orderless` for now.
