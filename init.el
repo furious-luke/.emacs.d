@@ -150,7 +150,9 @@
 (setq recentf-max-menu-items 25)
 (global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
-(savehist-mode 1)
+(use-package savehist
+  :ensure t
+  :init (savehist-mode))
 
 ;;
 ;; Completion framework.
@@ -158,8 +160,8 @@
 
 (use-package company
   :ensure t
-  :init (setq company-idle-delay 0.0
-               company-minimum-prefix-length 1))
+  :init (setq company-idle-delay 0.3
+              company-minimum-prefix-length 1))
 
 ;;
 ;; Linting with Flycheck.
@@ -257,10 +259,23 @@
 ;; Completion system.
 ;;
 
-(use-package selectrum
-  :ensure t
+;; (use-package selectrum
+;;   :ensure t
+;;   :init
+;;   (selectrum-mode +1))
+
+(use-package vertico
   :init
-  (selectrum-mode +1))
+  (vertico-mode)
+  ;; Different scroll margin
+  ;; (setq vertico-scroll-margin 0)
+  ;; Show more candidates
+  ;; (setq vertico-count 20)
+  ;; Grow and shrink the Vertico minibuffer
+  ;; (setq vertico-resize t)
+  ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
+  ;; (setq vertico-cycle t))
+  )
 
 ;; Prescient provides filtering and sorting for completion options.
 ;; NOTE: Disabled in favor of `orderless` for now.
@@ -428,6 +443,18 @@
   ;; auto-updating embark collect buffer
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
+
+;;
+;; Prespective for buffer management.
+;;
+
+(use-package perspective
+  :ensure t
+  :bind (("C-x C-b" . persp-list-buffers)
+         ("C-x b" . persp-switch-to-buffer*)
+         ("C-x k" . persp-kill-buffer*))
+  :custom (persp-mode-prefix-key (kbd "C-x x"))
+  :init (persp-mode))
 
 ;;
 ;; Projectile.
