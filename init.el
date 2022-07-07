@@ -598,9 +598,8 @@
 ;; Magit.
 (use-package magit
   :ensure t
-  :config
-  (global-set-key (kbd "C-x g") 'magit-status)
-  (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup))
+  :bind (("C-x g" . magit-status)
+         ("C-x M-g" . magit-dispatch-popup)))
 
 ;; Git gutter (diff-hl)
 (use-package diff-hl
