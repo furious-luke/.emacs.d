@@ -1,146 +1,45 @@
-;;
-;; Straight, a package manager for Emacs.
-;;
+(add-to-list 'load-path (concat user-emacs-directory "setup/"))
 
-;; Bootstrap Straight.
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
-
-;; Integrate Straight with Package.
-(straight-use-package 'use-package)
-(use-package straight
-  :custom
-  (straight-use-package-by-default t))
+(require 'setup-general)
+(require 'setup-aesthetics)
+(require 'setup-eglot)
+(require 'setup-olivetti)
+(require 'setup-tree-sitter)
+(require 'setup-python)
+(require 'setup-typescript)
 
 ;;
-;; Internal Emacs Lisp settings.
+;; Features
 ;;
 
-;; Make use of all that RAM we have.
-(setq max-specpdl-size 3200
-      max-lisp-eval-depth 3200
-      gc-cons-threshold 100000000)
-
- ;; Lock files will kill `npm start'.
-(setq create-lockfiles nil)
-
-;; Show me debugging output for all my mistakes.
-;; NOTE: This breaks lsp-install-server
-;; (setq debug-on-error t)
-
-;; I've always hated trying to reload the init file.
-(defun reload-init-file ()
-  (interactive)
-  (load-file user-init-file))
-(global-set-key (kbd "<f5>") 'reload-init-file)
-
-;; Don't litter with autosave/backups.
-(setq make-backup-files nil)
-(setq auto-save-default nil)
-
-;;
-;; Help me find the command I want.
-;;
-
-(use-package which-key
-  :ensure t
-  :config (which-key-mode))
-
-;;
-;; MacOS corrections.
-;;
-
-;; Environment variables don't make it into Emacs in MacOS.
-(use-package exec-path-from-shell
-  :ensure
-  :init (exec-path-from-shell-initialize))
-
-;; MacOS uses a different `ls`.
-(if (string-equal system-type "darwin")
-    (setq dired-use-ls-dired nil))
-
-;;
-;; Basic editing.
-;;
-
-(setq-default indent-tabs-mode nil)
-
-;;
-;; Environment inclusion.
-;;
-
-;; Respect .envrc files.
-(use-package direnv
+;; Highlight regions of buffers for visibility.
+(use-package pulsar
   :ensure t
   :config
-  (direnv-mode))
+  (setq pulsar-pulse-on-window-change 1)
+  :hook
+  (after-init . pulsar-global-mode))
 
-;;
-;; Aesthetics.
-;;
-
-;; Remove menu/tool bars.
-(if window-system (menu-bar-mode -1))
-(if window-system (tool-bar-mode -1))
-
-;; Use Modus Vivendi theme. I prefer the colors of Dracula, however
-;; Modus Vivendi has much better contrast.
-(setq custom-safe-themes t)
-(use-package modus-themes
-  :ensure t)
-(load-theme 'modus-vivendi)
-
-;; Different font size between Linux and Darwin.
-(setq bmw/face-height-default
-      (if (eq system-type 'darwin)
-          180
-        140))
-
-;; Set default font to Fantasque Sans Mono.
-(set-face-attribute 'default nil
-                    :family "FantasqueSansMono Nerd Font"
-                    :height bmw/face-height-default)
-
-;; Manage HiDPI environments.
-(defun my-dpi (&optional frame)
-  "Get the DPI of FRAME (or current if nil)."
-  (cl-flet ((pyth (lambda (w h)
-                    (sqrt (+ (* w w)
-                             (* h h)))))
-            (mm2in (lambda (mm)
-                     (/ mm 25.4))))
-    (let* ((atts (frame-monitor-attributes frame))
-           (pix-w (cl-fourth (assoc 'geometry atts)))
-           (pix-h (cl-fifth (assoc 'geometry atts)))
-           (pix-d (pyth pix-w pix-h))
-           (mm-w (cl-second (assoc 'mm-size atts)))
-           (mm-h (cl-third (assoc 'mm-size atts)))
-           (mm-d (pyth mm-w mm-h)))
-      (/ pix-d (mm2in mm-d)))))
-(defvar my-zoom-frm-wanted-dpi 70
-  "The DPI I want to achieve when using `my-zoom-frm-by-dpi'.")
-(defun my-zoom-frm-by-dpi (&optional frame)
-  "Zoom FRAME so the DPI is closer to `my-zoom-frm-wanted-dpi'."
-  (interactive)
-  (let ((frame (or frame (selected-frame))))
-    (when (frame-parameter frame 'zoomed)
-      (zoom-frm-unzoom frame))
-    (let ((frame-zoom-font-difference (1- (round (/ (my-dpi frame)
-                                                    my-zoom-frm-wanted-dpi)))))
-      (when (called-interactively-p 'interactive)
-        (message "Zooming by %S" frame-zoom-font-difference))
-      (zoom-frm-in frame))))
-(add-hook 'after-make-frame-functions #'my-zoom-frm-by-dpi)  ;; apply the scaling I want to each newly created frame
+;; Help working with parens.
+;; TODO: It's more annoying than usefule, I think.
+;; (use-package smartparens
+;;   :ensure t
+;;   ;; :bind
+;;   ;; ("M-<backspace>" . sp-unwrap-sexp)
+;;   ;; ("M-<left>" . sp-forward-barf-sexp)
+;;   ;; ("M-<right>" . sp-forward-slurp-sexp)
+;;   ;; ("M-S-<left>" . sp-backward-slurp-sexp)
+;;   ;; ("M-S-<right>" . sp-backward-barf-sexp)
+;;   :hook
+;;   (after-init . smartparens-global-mode)
+;;   (wdired-mode . smartparens-mode)
+;;   :custom
+;;   (sp-highlight-pair-overlay nil)
+;;   (sp-highlight-wrap-overlay nil)
+;;   (sp-highlight-wrap-tag-overlay nil)
+;;   :config
+;;   ;; (show-paren-mode 0)
+;;   (require 'smartparens-config))
 
 ;;
 ;; Recent files and history.
@@ -161,7 +60,8 @@
 (use-package company
   :ensure t
   :init (setq company-idle-delay 0.3
-              company-minimum-prefix-length 1))
+              company-minimum-prefix-length 1)
+  :config (global-company-mode))
 
 ;;
 ;; Linting with Flycheck.
@@ -169,77 +69,10 @@
 
 (use-package flycheck
   :ensure t
-  :init (global-flycheck-mode))
-
-;;
-;; Language Server Protocol.
-;;
-
-(use-package lsp-mode
-  :ensure t
-  :init (setq lsp-keymap-prefix "C-c l")
-  :hook ((prog-mode . lsp)
-         (lsp-mode . lsp-enable-which-key-integration)))
-
-(use-package yasnippet
-  :ensure t
-  :init (yas-global-mode))
-
-;; (use-package lsp-ui
-;;   :after lsp-mode
-;;   :ensure t)
-
-(use-package lsp-treemacs
-  :after lsp-mode
-  :ensure t)
-
-(use-package lsp-pyright
-  :after lsp-mode
-  :ensure t)
-
-;;
-;; JavaScript/TypeScript.
-;;
-
-(use-package tree-sitter
-  :ensure t
   :config
-  ;; activate tree-sitter on any buffer containing code for which it has a parser available
-  (global-tree-sitter-mode)
-  ;; you can easily see the difference tree-sitter-hl-mode makes for python, ts or tsx
-  ;; by switching on and off
-  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
-
-(use-package tree-sitter-langs
-  :ensure t
-  :after tree-sitter)
-
-(use-package typescript-mode
-  :after tree-sitter
-  :config
-  ;; we choose this instead of tsx-mode so that eglot can automatically figure out language for server
-  ;; see https://github.com/joaotavora/eglot/issues/624 and https://github.com/joaotavora/eglot#handling-quirky-servers
-  (define-derived-mode typescriptreact-mode typescript-mode
-    "TypeScript TSX")
-
-  ;; use our derived mode for tsx files
-  (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . typescriptreact-mode))
-  ;; by default, typescript-mode is mapped to the treesitter typescript parser
-  ;; use our derived mode to map both .tsx AND .ts -> typescriptreact-mode -> treesitter tsx
-  (add-to-list 'tree-sitter-major-mode-language-alist '(typescriptreact-mode . tsx)))
-
-;; https://github.com/orzechowskid/tsi.el/
-;; great tree-sitter-based indentation for typescript/tsx, css, json
-(use-package tsi
-  :after tree-sitter
-  :straight (:type git :host github :repo "orzechowskid/tsi.el")
-  ;; define autoload definitions which when actually invoked will cause package to be loaded
-  :commands (tsi-typescript-mode tsi-json-mode tsi-css-mode)
+  (setq flycheck-global-modes '(not org-mode))
   :init
-  (add-hook 'typescript-mode-hook (lambda () (tsi-typescript-mode 1)))
-  (add-hook 'json-mode-hook (lambda () (tsi-json-mode 1)))
-  (add-hook 'css-mode-hook (lambda () (tsi-css-mode 1)))
-  (add-hook 'scss-mode-hook (lambda () (tsi-scss-mode 1))))
+  (global-flycheck-mode))
 
 ;;
 ;; Bookmarks and annotations.
@@ -551,22 +384,6 @@
   :ensure t)
 
 ;;
-;; Python environment integrations.
-;;
-
-(use-package pyenv-mode
-  :ensure t)
-
-(use-package pyvenv
-  :ensure t
-  :init
-  (setenv "WORKON_HOME" "~/.pyenv/versions"))
-
-;; (use-package poetry
-;;   :ensure t
-;;   :config (add-hook 'prog-mode-hook #'poetry-tracking-mode))
-
-;;
 ;; Graphql mode
 ;;
 
@@ -641,7 +458,14 @@
 ;; Line numbers.
 ;;
 
-(add-hook 'prog-mode-hook 'linum-mode)
+(add-hook 'conf-mode-hook #'display-line-numbers-mode)
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
+(add-hook 'text-mode-hook #'display-line-numbers-mode)
+(setq-default
+ display-line-numbers-grow-only t
+ ;; display-line-numbers-type 'relative
+ ;; display-line-numbers-width 3
+ )
 
 ;;
 ;; Multiple cursors.
@@ -682,15 +506,46 @@
 (use-package scad-mode
   :ensure t)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(warning-suppress-types '((lsp-mode))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+;;
+;; Org mode.
+;;
+
+(use-package org
+  :straight (:type built-in)
+  :custom
+  (org-adapt-indentation nil)
+  (org-babel-python-command "python")
+  (org-confirm-babel-evaluate nil)
+  (org-cycle-separator-lines 0)
+  (org-descriptive-links nil)
+  (org-edit-src-content-indentation 0)
+  (org-edit-src-persistent-message nil)
+  (org-fontify-done-headline t)
+  (org-fontify-quote-and-verse-blocks t)
+  (org-fontify-whole-heading-line t)
+  (org-return-follows-link t)
+  (org-src-preserve-indentation t)
+  (org-src-tab-acts-natively t)
+  (org-src-window-setup 'current-window)
+  (org-startup-truncated nil)
+  (org-support-shift-select 'always)
+  (org-pretty-entities t)
+  (org-hide-emphasis-markers t)
+  (org-startup-with-inline-images t)
+  (org-startup-indented t)
+  (org-display-remote-inline-images 'cache)
+  (org-startup-folded 'showall)
+  :config
+  (setq org-agenda-files '("~/Dropbox/org"))
+  (require 'ob-shell)
+  (org-babel-do-load-languages
+   'org-babel-load-languages '((python . t) (shell . t)))
+  (modify-syntax-entry ?' "'" org-mode-syntax-table)
+  ;; (advice-add 'org-src--construct-edit-buffer-name :override
+  ;;   #'me/org-src-buffer-name)
+  :hook
+  (org-mode . buffer-face-mode))
+
+(use-package org-appear
+  :ensure t
+  :hook (org-mode . org-appear-mode))
