@@ -7,6 +7,7 @@
 (require 'setup-tree-sitter)
 (require 'setup-python)
 (require 'setup-typescript)
+(require 'setup-golang)
 
 ;;
 ;; Features
