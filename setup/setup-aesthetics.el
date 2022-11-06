@@ -30,6 +30,6 @@
 
 ;; Always show fill column indicator.
 (global-display-fill-column-indicator-mode t)
-(set-face-attribute 'fill-column-indicator nil :background "grey30")
+(set-face-attribute 'fill-column-indicator nil :foreground "grey30")
 
 (provide 'setup-aesthetics)
