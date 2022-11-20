@@ -2,12 +2,14 @@
 
 (require 'setup-general)
 (require 'setup-aesthetics)
+(require 'setup-flymake)
 (require 'setup-eglot)
 (require 'setup-olivetti)
 (require 'setup-tree-sitter)
 (require 'setup-python)
 (require 'setup-typescript)
 (require 'setup-golang)
+(require 'setup-css)
 
 ;;
 ;; Features
