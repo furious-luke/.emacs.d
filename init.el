@@ -10,6 +10,7 @@
 (require 'setup-typescript)
 (require 'setup-golang)
 (require 'setup-css)
+(require 'setup-sql)
 
 ;;
 ;; Features
