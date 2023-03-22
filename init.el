@@ -2,6 +2,7 @@
 
 (require 'setup-general)
 (require 'setup-aesthetics)
+(require 'setup-project)
 (require 'setup-flymake)
 (require 'setup-eglot)
 (require 'setup-olivetti)
@@ -13,6 +14,7 @@
 (require 'setup-golang)
 (require 'setup-css)
 (require 'setup-sql)
+(require 'setup-dart)
 
 ;;
 ;; Features
