@@ -15,5 +15,5 @@
    ;; (right-divider-width . 2)            ; Thin vertical window divider
    ;; (right-fringe . 8)                   ; Thin right fringe
    (tool-bar-lines . 0)                 ; No tool bar
-   (undecorated . t)                    ; Remove extraneous X decorations
+   ;; (undecorated . t)                    ; Remove extraneous X decorations
    (vertical-scroll-bars . nil)))       ; No vertical scroll-bars
