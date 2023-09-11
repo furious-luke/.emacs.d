@@ -41,7 +41,14 @@
 (put 'upcase-region 'disabled nil)      ; Enable `upcase-region'
 (set-default-coding-systems 'utf-8)     ; Default to utf-8 encoding
 
-(setq debug-on-error t) ; Enable debugging
+;; (setq debug-on-error t) ; Enable debugging
+
+;; Not sure why this has become necessary, but now for some reason tabs are getting added in against
+;; my will.
+(add-hook 'write-file-hooks 
+          (lambda () (if (not indent-tabs-mode)
+                         (untabify (point-min) (point-max)))
+            nil ))
 
 (put 'add-function 'lisp-indent-function 2)
 (put 'advice-add 'lisp-indent-function 2)
