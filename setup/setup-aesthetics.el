@@ -13,9 +13,9 @@
 (load-theme 'dracula)
 
 ;; Prepare typefaces.
-(let ((font-fixed "FantasqueSansMono Nerd Font")
+(let ((font-fixed "FantasqueSansM Nerd Font")
       (font-size 140)
-      (font-variable "FantasqueSansMono Nerd Font"))
+      (font-variable "FantasqueSansM Nerd Font"))
   (set-face-attribute 'default nil :font font-fixed :height font-size)
   (set-face-attribute 'fixed-pitch nil :font font-fixed :height font-size)
   (set-face-attribute 'mode-line nil :height font-size :inherit 'default)
