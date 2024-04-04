@@ -1,9 +1,11 @@
 (use-package go-mode
   :ensure t
-  :config (add-hook 'go-mode-hook
-                    (lambda ()
-                      (setq-default indent-tabs-mode 1)
-                      (setq-default tab-width 2))))
+  ;;:hook (go-ts-mode . (lambda () (setq-default tab-width 4)))
+  :init (setq go-ts-mode-indent-offset 4))
+;;   :config (add-hook 'go-mode-hook)
+;;   (lambda ()
+;;     (setq-default indent-tabs-mode 1)
+;;     (setq-default tab-width 2)))
 
 (defun project-find-go-module (dir)
   (when-let ((root (locate-dominating-file dir "go.mod")))

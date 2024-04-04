@@ -2,10 +2,10 @@
 ;; Python environment integrations.
 ;;
 
-(use-package python
-  :config
-  ;; Remove guess indent python message
-  (setq python-indent-guess-indent-offset-verbose nil))
+;; (use-package python
+;;   :config
+;;   ;; Remove guess indent python message
+;;   (setq python-indent-guess-indent-offset-verbose nil))
 
 (use-package pyenv-mode
   :ensure t)

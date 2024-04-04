@@ -43,13 +43,6 @@
 
 ;; (setq debug-on-error t) ; Enable debugging
 
-;; Not sure why this has become necessary, but now for some reason tabs are getting added in against
-;; my will.
-(add-hook 'write-file-hooks 
-          (lambda () (if (not indent-tabs-mode)
-                         (untabify (point-min) (point-max)))
-            nil ))
-
 (put 'add-function 'lisp-indent-function 2)
 (put 'advice-add 'lisp-indent-function 2)
 (put 'plist-put 'lisp-indent-function 2)
@@ -78,31 +71,6 @@
 (pcase window-system
   ('w32 (set-frame-parameter nil 'fullscreen 'fullboth))
   (_ (set-frame-parameter nil 'fullscreen 'maximized)))
-
-;;
-;; Straight, a package manager for Emacs.
-;;
-
-;; Bootstrap Straight.
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
-
-;; Integrate Straight with Package.
-(straight-use-package 'use-package)
-;; (setq-default use-package-always-defer t)
-(use-package straight
-  :custom
-  (straight-use-package-by-default t))
 
 ;;
 ;; Help me find the command I want.
@@ -135,5 +103,30 @@
   :ensure t
   :config
   (direnv-mode))
+
+;;
+;; Recent files and history.
+;;
+
+(recentf-mode 1)
+(setq recentf-max-menu-items 25)
+(global-set-key "\C-x\ \C-r" 'recentf-open-files)
+
+(use-package savehist
+  :elpaca nil
+  :init (savehist-mode))
+
+;;
+;; Line numbers
+;;
+
+(add-hook 'conf-mode-hook #'display-line-numbers-mode)
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
+(add-hook 'text-mode-hook #'display-line-numbers-mode)
+(setq-default
+ display-line-numbers-grow-only t
+ ;; display-line-numbers-type 'relative
+ ;; display-line-numbers-width 3
+ )
 
 (provide 'setup-general)

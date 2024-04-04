@@ -2,15 +2,11 @@
 ;; Aesthetics.
 ;;
 
-;; Use Modus Vivendi theme. I prefer the colors of Dracula, however
-;; Modus Vivendi has much better contrast.
 (setq custom-safe-themes t)
-;; (use-package modus-themes
-;;   :ensure t)
-;; (load-theme 'modus-vivendi)
+
 (use-package dracula-theme
-  :ensure t)
-(load-theme 'dracula)
+  :ensure t
+  :config (load-theme 'dracula))
 
 ;; Prepare typefaces.
 (let ((font-fixed "FantasqueSansM Nerd Font")
@@ -31,5 +27,16 @@
 ;; Always show fill column indicator.
 (global-display-fill-column-indicator-mode t)
 (set-face-attribute 'fill-column-indicator nil :foreground "grey30")
+
+;; NOTE: Remember to run `all-the-icons-install-fonts`.
+(use-package all-the-icons
+  :ensure t)
+
+(use-package all-the-icons-completion
+  :ensure t
+  :after (marginalia all-the-icons)
+  :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
+  :init
+  (all-the-icons-completion-mode))
 
 (provide 'setup-aesthetics)
